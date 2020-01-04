@@ -1,5 +1,5 @@
-import { Black, GameObject, CanvasDriver, Input, Engine, StageScaleMode } from "black-engine";
-import { Game } from "./game";
+import {CanvasDriver, Engine, Input, StageScaleMode} from "black-engine";
+import {Game} from "./game";
 
 // Game will be our starting class and rendering will be done on Canvas
 const engine = new Engine('container', Game, CanvasDriver, [Input]);
