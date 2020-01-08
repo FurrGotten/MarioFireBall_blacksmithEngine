@@ -45,6 +45,7 @@ export class Game extends GameObject {
     }
 
     onAssetsLoadded(m) {
+        // Create all parts we neen and at the end of add all of them to this.add, to whit what we are working
         // Create a sprite
         const shotSprite = new Sprite('pipeDown');
         shotSprite.alignPivotOffset(0.5, 4);
@@ -71,6 +72,7 @@ export class Game extends GameObject {
         emitter.blendMode = BlendMode.ADD;
         emitter.x = this.stage.centerX;
 
+        // initial parameters of out particles, physic, way to move and texture
         emitter.emitCount = new FloatScatter(10);
         emitter.emitDelay = new FloatScatter(0);
         emitter.emitInterval = new FloatScatter(0);
@@ -78,6 +80,7 @@ export class Game extends GameObject {
         emitter.emitNumRepeats = new FloatScatter(Infinity);
         emitter.textures = [Black.assets.getTexture('star')];
 
+        // parameters that our particles duration, velocity, where it needs to go and color
         emitter.add(new InitialLife(0.1, 0.5));
         emitter.add(new InitialVelocity(-50, 0, 50, -200));
         emitter.add(new Acceleration(0, -800, 500, 100));
@@ -86,10 +89,11 @@ export class Game extends GameObject {
 
         emitter.y = this.stage.bounds.y - 500;
 
+        //create a Tween
         let tween = new Tween({y: [0, sprite.y - 110]}, 1, {loop: true, repeatDelay: 1});
         emitter.add(tween);
 
-        // Tween sprite color
+        // Tween sprite color, here we have a shooting bouncing effect that needs 3 colors
         shotSprite.color = 0xffffff;
         shotSprite.add(new Tween({color: [0xffffaa, 0xff0000, 0xffffaa]}, 0.5, {
             delay: 0,
@@ -97,7 +101,7 @@ export class Game extends GameObject {
             repeatDelay: 1.5
         }, {color: ColorHelper.lerpHSV}));
         shotSprite.add(new Tween({scaleY: [1.2, 0.9, 1]}, 0.5, {delay: 0, loop: true, repeatDelay: 1.5}));
-
+        // two different timers to have them have a nice timing
         sprite.color = 0xffffff;
         sprite.add(new Tween({color: [0xffffaa, 0xff0000, 0xffffaa]}, 0.5, {
             delay: 0.7,
@@ -122,6 +126,7 @@ export class Game extends GameObject {
         this.stage.on('resize', this.onResize, this);
     }
 
+    // Set up your resize logic
     onResize() {
         this.text.x = this.stage.bounds.x;
         this.text.y = this.stage.bounds.y;
